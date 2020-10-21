@@ -1,7 +1,7 @@
 #Reference the 'Cameron-Lieber Set Enumeration Manual' before continuing.
 #Note: Open GAP from powershell/terminal using the '-o' command line option with your total RAM; i.e. 'gap -o 64g'
-#GAP terminal input to run this file (Linux OS): Read("/home/daniel/Documents/Graduate_Research/CLsetEnumeration/MAIN.g");
-#GAP powershell/command prompt to run this file (Windows OS): Read("C:/Users/Daniel/Documents/Graduate_Research/CLsetEnumeration/MAIN.g");
+#GAP terminal input to run this file (Linux OS): Read("/home/daniel/Documents/Graduate_Research/Github/CLsetEnumeration/MAIN.g");
+#GAP powershell/command prompt to run this file (Windows OS): Read("C:/Users/Daniel/Documents/Graduate_Research/Github/CLsetEnumeration/MAIN.g");
 
 
 ######## TABLE OF CONTENTS #######
@@ -21,7 +21,7 @@
 ##### SECTION 0 - PREAMBLE #####
 
 #Home directory (location of MAIN.g and required folders) and location of python (used to call Gurobi).
-home_dir := "C:/Users/Daniel/Documents/Graduate_Research/CLsetEnumeration/";
+home_dir := "C:/Users/Daniel/Documents/Graduate_Research/Github/CLsetEnumeration/";
 python3 := "C:/Users/Daniel/AppData/Local/Programs/Python/Python37/python.exe";
 
 ### USER INPUT (REQUIRED) ###
