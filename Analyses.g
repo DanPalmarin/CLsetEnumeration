@@ -473,7 +473,7 @@ if tex_output = 0 then
         if strict_EKR then
             PrintToFormatted(latex_output, "\\item The strict EKR property holds ({1} maximum cocliques).", Size(maximum_cocliques));
             if maximum_cocliques_unchecked <> maximum_cocliques then
-                PrintToFormatted(latex_output, " There are {2} other solutions of the same length that are not maximum cocliques.", num_other_solutions);
+                PrintToFormatted(latex_output, " There are {1} other solutions of the same length that are not maximum cocliques.", num_other_solutions);
             fi;
             WriteAll(latex_output, "\n");
         else

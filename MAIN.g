@@ -127,6 +127,7 @@ lp_file_end := 3; #This never changes for any group. It's used to remove the las
 elements := Elements(grp);
 trans := Transitivity(grp); #Determines the maximal nonnegative integer k such that the action of G is k-transitive.
 aut := AutomorphismGroup(grp);
+inn := InnerAutomorphismsAutomorphismGroup(aut); #Note that "aut" can potentially generate sets isomorphic to CL sets that are in the wrong module. Use "inn" instead.
 ###############################################################################################################
 
 
@@ -192,13 +193,13 @@ endLPFiles := function(els, file)
 	CloseStream(output);
 end;
 
-solution_family := function(sol, els, aut_els, G, sol_sum_file, tallied_file, degree, ord, python_file, sol_dir, CL)
-    #We find the orbit of the solution set on the automorphism group.
-    #i.e. g in aut acts on the solution set via conjugation of each of the e in elements of the set: geg^(-1).
+solution_family := function(sol, els, inn_els, G, sol_sum_file, tallied_file, degree, ord, python_file, sol_dir, CL)
+    #We find the orbit of the solution set on the inner automorphism group.
+    #i.e. g in inn acts on the solution set via conjugation of each of the e in elements of the set: geg^(-1).
     local solution_orbit, family, x, coclique, output;
     output := OutputTextFile(sol_sum_file, true);
     
-    solution_orbit := Orbit(aut_els, els{sol}, OnSets);
+    solution_orbit := Orbit(inn_els, els{sol}, OnSets);
     family := Orbits(grp, solution_orbit, {S, g} -> AsSet(S*g));
     family := Concatenation(family);
     family := AsSet(List(family, AsSet)); #Sorting the solutions seems to speed of Gurobi's optimization
@@ -562,10 +563,10 @@ cocliques := [];
     #Restricts all of the stabilizers and their cosets (mappings from i->j). These are all known cocliques.
     #Sometimes, the orbit + cosets of the a stabilizer contains many more than the standard n^2 solutions.
     #Sometimes the n^2 ij_mappings are contained in the orbit + cosets of more solutions.
-    #To be safe, we manually compute the stabilizer of 1, find its orbit on aut, and compute its cosets.
+    #To be safe, we manually compute the stabilizer of 1, find its orbit on inn, and compute its cosets.
 stab1_orbit_cosets := [];
 if ij_mappings = 1 then
-    stab1_orbit := Orbit(aut, Elements(Stabilizer(grp, 1)), OnSets);
+    stab1_orbit := Orbit(inn, Elements(Stabilizer(grp, 1)), OnSets);
     
     #Compute the right cosets of each stabilizer in stab1_orbit.
     #Make use of 'RightCosets' GAP function, since all stabilizers are subgroups.
@@ -667,7 +668,7 @@ for c in [starting_LP..ending_LP] do
         fi;
         
         #Find the family of the solution.
-        forbidden_final := solution_family(solution, elements, aut, grp, solutions_summary_file, solutions_tallied_file, n, order, python_summary_script, solutions_summary_directory, CL_set);
+        forbidden_final := solution_family(solution, elements, inn, grp, solutions_summary_file, solutions_tallied_file, n, order, python_summary_script, solutions_summary_directory, CL_set);
 
         #We use Python to delete the ending of each lp file that is and will be used (this is faster and easier to do in Python).
         Exec(python3, python_file_edit_script, String(starting_LP), String(ending_LP), gurobi_output_directory, group_name, String(lp_file_end), String(c));
