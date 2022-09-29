@@ -22,7 +22,7 @@
 
 #Home directory (location of MAIN.g and required folders) and location of python (used to call Gurobi).
 home_dir := "C:/Users/Daniel/Documents/Graduate_Research/Github/CLsetEnumeration/";
-python3 := "C:/Users/Daniel/AppData/Local/Programs/Python/Python37/python.exe";
+python3 := "C:/Users/Daniel/Python310/python.exe";
 
 ### USER INPUT (REQUIRED) ###
 
